@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 20 - CSS Filter Effects</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background:#0a1118;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container {
+    text-align:center;
+    width:90%;
+}
+
+.card {
+    background:#1c2226;
+    width:420px;
+    margin:auto;
+    padding:15px;
+    border-radius:12px;
+}
+
+img {
+    width:250px;
+    transition:all .5s ease;
+}
+
+.title {
+    font-size:24px;
+    font-style:italic;
+    font-weight:bold;
+
+    background:linear-gradient(to bottom,#ffd700,#b8860b);
+
+    background-clip:text;
+    -webkit-background-clip:text; 
+
+    color:transparent;
+    -webkit-text-fill-color:transparent;
+
+    margin-top:10px;
+}
+
+.buttons {
+    margin-top:18px;
+
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+}
+
+button {
+    background:#232b30;
+    color:white;
+    border:1px solid #3a4650;
+    padding:10px 16px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#33404b;
+}
+
+button.active{
+    background:#0d6efd;
+}
+
+.gray {
+    filter:grayscale(1);
+}
+
+.xray {
+    filter:grayscale(1) invert(1);
+}
+
+.invert{
+    filter:invert(1);
+}
+
+.glow{
+    filter:drop-shadow(0 0 15px #ff66cc);
+}
+
+.shadow{
+    filter:drop-shadow(5px 5px 8px black);
+}
+
+.boldshadow{
+    filter:drop-shadow(10px 10px 10px black);
+}
+
+.dropshadow{
+    filter:drop-shadow(0 0 10px gold);
+}
+
+.blur{
+    filter:blur(3px);
+}
+
+.mask{
+    opacity:0.6;
+}
+
+.alpha{
+    opacity:0.4;
+}
+
+.wave {
+    animation:wave 1s infinite ease-in-out;
+}
+
+@keyframes wave {
+    0%{
+        transform:translateY(0px);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+    100%{
+        transform:translateY(0px);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+        <img
+            id="flower"
+            src="Bai20/hoahong.gif"
+            alt="Hoa hồng">
+
+        <div class="title">
+            Special For You
+        </div>
+    </div>
+
+    <div class="buttons">
+
+        <button onclick="applyEffect('gray',this)">Gray</button>
+
+        <button onclick="applyEffect('xray',this)">Xray</button>
+
+        <button onclick="applyEffect('invert',this)">Invert</button>
+
+        <button onclick="applyEffect('flipH',this)">FlipH</button>
+
+        <button onclick="applyEffect('flipV',this)">FlipV</button>
+
+        <button onclick="applyEffect('glow',this)">Glow</button>
+
+        <button onclick="applyEffect('shadow',this)">Shadow</button>
+
+        <button onclick="applyEffect('boldshadow',this)">
+            Bold Shadow
+        </button>
+
+        <button onclick="applyEffect('dropshadow',this)">
+            DropShadow
+        </button>
+
+        <button onclick="applyEffect('blur',this)">Blur</button>
+
+        <button onclick="applyEffect('wave',this)">Wave</button>
+
+        <button onclick="applyEffect('mask',this)">Mask</button>
+
+        <button onclick="applyEffect('alpha',this)">Alpha</button>
+
+    </div>
+</div>
+
+<script>
+const image = document.getElementById("flower");
+
+function clearEffects(){
+    image.className = "";
+    image.style.transform = "";
+
+    document
+        .querySelectorAll("button")
+        .forEach(btn => btn.classList.remove("active"));
+}
+
+function applyEffect(effect, button){
+
+    clearEffects();
+
+    button.classList.add("active");
+
+    switch(effect){
+
+        case "flipH":
+            image.style.transform = "scaleX(-1)";
+            break;
+
+        case "flipV":
+            image.style.transform = "scaleY(-1)";
+            break;
+
+        default:
+            image.classList.add(effect);
+    }
+}
+</script>
+</body>
+</html>
