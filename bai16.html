@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 16 - To-do List</title>
+
+    <style>
+        *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: Arial, sans-serif;
+    }
+
+        body {
+        background:#f2f4f7;
+        display:flex;
+        justify-content:center;
+        padding:30px 10px;
+    }
+
+        .todo-app {
+        width:600px;
+        background:#fff;
+        border-radius:15px;
+        overflow:hidden;
+        box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    }
+
+        header {
+        background:#6d28d9;
+        color:white;
+        padding:25px;
+    }
+
+        header h1 {
+        margin-bottom:10px;
+    }
+
+        .input-area {
+        display:flex;
+        gap:10px;
+        padding:20px;
+    }
+
+        .input-area input {
+        flex:1;
+        padding:14px;
+        border:1px solid #ddd;
+        border-radius:10px;
+        font-size:16px;
+    }
+
+        .input-area button {
+        padding:14px 25px;
+        border:none;
+        border-radius:10px;
+        background:#6d28d9;
+        color:white;
+        cursor:pointer;
+        font-size:16px;
+    }
+
+        .input-area button:hover {
+        background:#5b21b6;
+    }
+
+        ul {
+        list-style:none;
+        padding:0 20px;
+    }
+
+        .task {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        padding:16px 0;
+        border-bottom:1px dashed #ede9fe;
+    }
+
+        .task-left {
+        display:flex;
+        align-items:center;
+        gap:12px;
+        cursor:pointer;
+        flex:1;
+    }
+
+        .checkbox {
+        width:24px;
+        height:24px;
+        border:2px solid #a78bfa;
+        border-radius:6px;
+    }
+
+        .completed .checkbox {
+        background:#6d28d9;
+    }
+
+        .completed span {
+        text-decoration:line-through;
+        color:#9ca3af;
+    }
+
+        .delete-btn {
+        background:#fde2e2;
+        color:#dc2626;
+        border:none;
+        padding:10px 16px;
+        border-radius:8px;
+        cursor:pointer;
+    }
+
+        .delete-btn:hover {
+        background:#fecaca;
+    }
+
+        .counter {
+        padding:20px;
+        color:#6b7280;
+        font-weight:bold;
+    }
+
+        @media(max-width:640px) {
+        .todo-app {
+            width:100%;
+        }
+
+        .input-area {
+            flex-direction:column;
+        }
+    }
+    </style>
+</head>
+
+<body>
+
+<div class="todo-app">
+
+    <header>
+        <h1>Danh sách việc cần làm</h1>
+        <p>Thêm việc mới, đánh dấu hoàn thành hoặc xoá - tất cả bằng JavaScript.</p>
+    </header>
+
+    <div class="input-area">
+        <input type="text" id="taskInput" placeholder="Nhập công việc mới...">
+        <button id="addBtn">Thêm</button>
+    </div>
+
+    <ul id="taskList"></ul>
+
+    <div class="counter" id="counter">
+        Còn 0 việc chưa hoàn thành
+    </div>
+
+</div>
+
+<script>
+    const taskInput = document.getElementById("taskInput");
+    const addBtn = document.getElementById("addBtn");
+    const taskList = document.getElementById("taskList");
+    const counter = document.getElementById("counter");
+
+    function updateCounter() {
+        const tasks = document.querySelectorAll(".task");
+        const completed = document.querySelectorAll(".completed");
+
+        const remaining = tasks.length - completed.length;
+
+    counter.textContent =
+        `Còn ${remaining} việc chưa hoàn thành`;
+    }
+
+    function addTask() {
+        const text = taskInput.value.trim();
+
+        if(text === "") {
+        alert("Vui lòng nhập công việc!");
+        return;
+        }
+
+        const li = document.createElement("li");
+        li.className = "task";
+
+        li.innerHTML = `
+            <div class="task-left">
+                <div class="checkbox"></div>
+                <span>${text}</span>
+            </div>
+            <button class="delete-btn">Xoá</button>
+    `;
+
+    // Đổi trạng thái hoàn thành
+    li.querySelector(".task-left").addEventListener("click", function(){
+        li.classList.toggle("completed");
+        updateCounter();
+    });
+
+    // Xoá công việc
+    li.querySelector(".delete-btn").addEventListener("click", function(){
+        li.remove();
+        updateCounter();
+    });
+
+    taskList.appendChild(li);
+
+    taskInput.value = "";
+    updateCounter();
+}
+
+addBtn.addEventListener("click", addTask);
+
+taskInput.addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+        addTask();
+    }
+});
+
+updateCounter();
+</script>
+</body>
+</html>
