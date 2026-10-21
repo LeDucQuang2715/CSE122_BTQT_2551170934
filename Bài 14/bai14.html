@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6 kỳ quan thiên nhiên Việt Nam</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        header {
+            background: #2E7D32;
+            color: #FFEB3B;
+            text-align: center;
+            padding: 12px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .gioi-thieu {
+            color: #1b5e20;
+            font-style: italic;
+            padding: 18px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .luoi-ky-quan {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding: 18px;
+        }
+
+        .ky-quan {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .ky-quan img {
+            width: 100%;
+            height: 105px;
+            object-fit: cover;
+            border-bottom: 2px solid #2E7D32;
+            display: block;
+        }
+
+        .noi-dung {
+            padding: 10px;
+        }
+
+        .noi-dung h2 {
+            color: #1b5e20;
+            font-size: 15px;
+            margin: 0 0 6px;
+        }
+
+        .noi-dung p {
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Anh va chu so le */
+        .ky-quan:nth-child(even) img {
+            border-bottom-width: 3px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .luoi-ky-quan {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .luoi-ky-quan {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>6 kỳ quan thiên nhiên Việt Nam</h1>
+    </header>
+
+    <main>
+        <p class="gioi-thieu">
+            Việt Nam sở hữu nhiều kỳ quan thiên nhiên được thế giới
+            công nhận – từ vịnh biển, hang động đến núi cao và miền sông nước.
+        </p>
+
+        <section class="luoi-ky-quan">
+            <article class="ky-quan">
+                <img src="Bai14/1-vinh-ha-long.jpg"
+                     alt="Vịnh Hạ Long">
+                <div class="noi-dung">
+                    <h2>1. Vịnh Hạ Long</h2>
+                    <p>Gần 2.000 đảo đá vôi, Di sản thiên nhiên thế giới, thuộc Quảng Ninh.</p>
+                </div>
+            </article>
+
+            <article class="ky-quan">
+                <img src="Bai14/2-son-doong.jpg"
+                     alt="Hang Sơn Đoòng">
+                <div class="noi-dung">
+                    <h2>2. Hang Sơn Đoòng</h2>
+                    <p>Hang động tự nhiên lớn nhất thế giới, thuộc Quảng Bình.</p>
+                </div>
+            </article>
+
+            <article class="ky-quan">
+                <img src="Bai14/3-thac-ban-gioc.jpg"
+                     alt="Thác Bản Giốc">
+                <div class="noi-dung">
+                    <h2>3. Thác Bản Giốc</h2>
+                    <p>Thác nước đẹp nhất Việt Nam, nằm ở Cao Bằng.</p>
+                </div>
+            </article>
+
+            <article class="ky-quan">
+                <img src="Bai14/4-fansipan.jpg"
+                     alt="Đỉnh Fansipan">
+                <div class="noi-dung">
+                    <h2>4. Fansipan</h2>
+                    <p>“Nóc nhà Đông Dương”, cao 3.147 m, thuộc Lào Cai.</p>
+                </div>
+            </article>
+
+            <article class="ky-quan">
+                <img src="Bai14/5-mekong.jpg"
+                     alt="Đồng bằng sông Cửu Long">
+                <div class="noi-dung">
+                    <h2>5. Đồng bằng sông Cửu Long</h2>
+                    <p>Vựa lúa, miệt vườn sông nước trù phú miền Nam.</p>
+                </div>
+            </article>
+
+            <article class="ky-quan">
+                <img src="Bai14/6-phong-nha.jpg"
+                     alt="Động Phong Nha">
+                <div class="noi-dung">
+                    <h2>6. Động Phong Nha</h2>
+                    <p>Hệ thống hang động kỳ vĩ, di sản thiên nhiên thế giới.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
