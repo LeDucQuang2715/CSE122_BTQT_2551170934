@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 22 - Chế độ Sáng/Tối</title>
+
+<style>
+
+/* Che do sang */
+:root {
+    --nen: #f8fafc;
+    --chu: #1e293b;
+    --the: #ffffff;
+    --vien: #cbd5e1;
+    --nhan: #2563eb;
+}
+
+/* Che do toi */
+.toi {
+    --nen: #0f172a;
+    --chu: #e2e8f0;
+    --the: #1e293b;
+    --vien: #334155;
+    --nhan: #60a5fa;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background:var(--nen);
+    color:var(--chu);
+    transition:all 0.5s ease;
+    min-height:100vh;
+    padding:20px;
+}
+
+.container {
+    max-width:900px;
+    margin:auto;
+}
+
+.top {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+h1 {
+    color:var(--chu);
+}
+
+/* Nut gat */
+.switch{
+    position:relative;
+    width:60px;
+    height:30px;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider {
+    position:absolute;
+    inset:0;
+    background:#94a3b8;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.slider::before {
+    content:"";
+    position:absolute;
+    width:24px;
+    height:24px;
+    left:3px;
+    top:3px;
+    background:white;
+    border-radius:50%;
+    transition:0.4s;
+}
+
+input:checked + .slider {
+    background:#60a5fa;
+}
+
+input:checked + .slider::before{
+    transform:translateX(30px);
+}
+
+/* The thong tin */
+.card{
+    background:var(--the);
+    border:1px solid var(--vien);
+    border-radius:10px;
+    padding:18px;
+    margin-bottom:15px;
+    transition:all 0.5s ease;
+}
+
+.card h3 {
+    color:var(--nhan);
+    margin-bottom:10px;
+}
+
+.card p {
+    line-height:1.7;
+}
+
+.status {
+    margin-top:15px;
+}
+
+</style>
+</head>
+<body class="toi">
+
+<div class="container">
+
+    <div class="top">
+        <h1>Chế độ Tối / Sáng</h1>
+
+        <label class="switch">
+            <input type="checkbox" id="themeToggle" checked>
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="card">
+        <h3>Biến CSS (CSS Variables)</h3>
+        <p>
+            Toàn bộ màu sắc được khai báo trong
+            <strong>:root</strong>
+            và được ghi đè bằng class
+            <strong>.toi</strong>.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>Chuyển đổi bằng JavaScript</h3>
+        <p>
+            Nút gạt thêm hoặc xoá class
+            <strong>.toi</strong>
+            trên phần body để thay đổi giao diện.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>Chuyển màu mượt</h3>
+        <p>
+            Sử dụng thuộc tính
+            <strong>transition</strong>
+            để nền và chữ chuyển đổi nhẹ nhàng.
+        </p>
+    </div>
+
+    <p class="status" id="status">
+        Đây là giao diện ở chế độ TỐI (đang bật).
+    </p>
+
+</div>
+
+<script>
+
+const toggle =
+document.getElementById("themeToggle");
+
+const statusText =
+document.getElementById("status");
+
+toggle.addEventListener("change", function() {
+
+    document.body.classList.toggle("toi");
+
+    if(document.body.classList.contains("toi")) {
+        statusText.textContent =
+        "Đây là giao diện ở chế độ TỐI (đang bật).";
+    }
+    else {
+        statusText.textContent =
+        "Đây là giao diện ở chế độ SÁNG.";
+    }
+
+});
+</script>
+</body>
+</html>
