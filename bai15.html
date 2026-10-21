@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 15 - Máy tính</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            background: #111827;
+            font-family: Arial, sans-serif;
+            color: #e5e7eb;
+        }
+
+        .calculator {
+            width: 100%;
+            max-width: 500px;
+            padding: 23px;
+            border-radius: 22px;
+            background: #111827;
+        }
+
+        .screen {
+            min-height: 126px;
+            margin-bottom: 19px;
+            padding: 20px 25px;
+            border-radius: 15px;
+            background: #022c22;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 8px;
+
+            overflow: hidden;
+        }
+
+        #expression {
+            width: 100%;
+            min-height: 20px;
+            color: #16a34a;
+            font-size: 18px;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        #result {
+            width: 100%;
+            min-height: 43px;
+            color: #4ade80;
+            font-size: 44px;
+            font-weight: bold;
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .keys {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        button {
+            min-width: 0;
+            height: 66px;
+            border: none;
+            border-radius: 12px;
+            background: #25313f;
+            color: #e5e7eb;
+            font-size: 23px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        button:hover {
+            filter: brightness(1.15);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        .operator,
+        .function {
+            background: #0d6efd;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .clear {
+            background: #dc2626;
+            color: #ffffff;
+        }
+
+        .equals {
+            background: #16a34a;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .zero {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 360px) {
+            .calculator {
+                padding: 14px;
+            }
+
+            .keys {
+                gap: 8px;
+            }
+
+            button {
+                height: 58px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="calculator">
+
+        <!-- Man hinh may tinh -->
+        <section class="screen">
+            <div id="expression"></div>
+            <div id="result">0</div>
+        </section>
+
+        <!-- Ban phim 4 cot 5 hang -->
+        <section class="keys">
+
+            <button class="clear" data-action="clear">C</button>
+            <button class="function" data-action="parentheses">()</button>
+            <button class="function" data-value="%">%</button>
+            <button class="operator" data-value="÷">÷</button>
+
+            <button data-value="7">7</button>
+            <button data-value="8">8</button>
+            <button data-value="9">9</button>
+            <button class="operator" data-value="×">×</button>
+
+            <button data-value="4">4</button>
+            <button data-value="5">5</button>
+            <button data-value="6">6</button>
+            <button class="operator" data-value="−">−</button>
+
+            <button data-value="1">1</button>
+            <button data-value="2">2</button>
+            <button data-value="3">3</button>
+            <button class="operator" data-value="+">+</button>
+
+            <button class="zero" data-value="0">0</button>
+            <button data-value=".">.</button>
+            <button class="equals" data-action="equals">=</button>
+
+        </section>
+    </main>
+
+    <script>
+        // 1. Lay cac phan tu HTML
+        const expressionDisplay =
+            document.getElementById("expression");
+
+        const resultDisplay =
+            document.getElementById("result");
+
+        const keys = document.querySelector(".keys");
+
+        // Khai bao bien luu phep tinh
+        let expression = "";
+        let justCalculated = false;
+
+        // Cap nhat phep tinh tren man hinh
+        function updateExpression() {
+            expressionDisplay.textContent = expression;
+        }
+
+        // Xoa toan bo may tinh
+        function clearCalculator() {
+            expression = "";
+            justCalculated = false;
+
+            expressionDisplay.textContent = "";
+            resultDisplay.textContent = "0";
+        }
+
+        // Nhap so va phep tinh
+        function appendValue(value) {
+            const isOperator =
+                ["+", "−", "×", "÷"].includes(value);
+
+            // Vua tinh xong ma nhap so moi thi bat dau 1 phep tinh moi
+            if (
+                justCalculated &&
+                !isOperator &&
+                value !== "%"
+            ) {
+                expression = "";
+                resultDisplay.textContent = "0";
+            }
+
+            justCalculated = false;
+
+            // Kiem tra dau thap phan
+            if (value === ".") {
+                const currentNumber =
+                    expression.split(/[+\−×÷()%]/).pop();
+
+                // Khong cho nhap nhieu dau chấm trong mot so
+                if (currentNumber.includes(".")) {
+                    return;
+                }
+
+                // Neu bat dau so thap phan, them so 0 vao truoc dau cham
+                if (currentNumber === "") {
+                    value = "0.";
+                }
+            }
+
+            // Khong bat dau bang nhan hoac chia
+            if (
+                (value === "×" || value === "÷") &&
+                expression === ""
+            ) {
+                return;
+            }
+
+            // Thay toan tu cuoi cung neu nhap lien tiep cac toan tu
+            if (
+                isOperator &&
+                /[+\−×÷]$/.test(expression)
+            ) {
+                expression = expression.slice(0, -1);
+            }
+
+            // Noi ky tu vao chuoi
+            expression += value;
+
+            // Hien thi phep tinh
+            updateExpression();
+        }
+
+        // Xu ly dau ngoac
+        function appendParenthesis() {
+            if (justCalculated) {
+                expression = "";
+                resultDisplay.textContent = "0";
+                justCalculated = false;
+            }
+
+            const openCount =
+                (expression.match(/\(/g) || []).length;
+
+            const closeCount =
+                (expression.match(/\)/g) || []).length;
+
+            const lastChar = expression.slice(-1);
+
+            const endsWithValue =
+                /[0-9.)%]$/.test(lastChar);
+
+            // Can dong ngoac thi them ngoac dong
+            if (openCount > closeCount && endsWithValue) {
+                expression += ")";
+            } else {
+                // Tu them phep nhan khi can
+                if (endsWithValue) {
+                    expression += "×";
+                }
+
+                expression += "(";
+            }
+
+            updateExpression();
+        }
+
+        // 7. Chuyen chuoi sang dang Javascript
+        function prepareExpression(source) {
+            let value = source
+                .replace(/×/g, "*")
+                .replace(/÷/g, "/")
+                .replace(/−/g, "-");
+
+            // Vi du: 50%
+            value = value.replace(
+                /(\d+(?:\.\d+)?|\))%/g,
+                "($1/100)"
+            );
+
+            return value;
+        }
+
+        // Tinh toan ket qua
+        function calculate() {
+            if (expression.trim() === "") {
+                return; }
+
+            try {
+                const prepared =
+                    prepareExpression(expression);
+
+                // Chi chap nhan ky tu dung trong phep toan
+                if (!/^[0-9+\-*/().\s]+$/.test(prepared)) {
+                    throw new Error("Phép tính không hợp lệ");
+                }
+
+                // Tinh bieu thuc sau khi kiem tra ky tu
+                const answer = Function(
+                    '"use strict"; return (' + prepared + ')'
+                )();
+
+                // Kiem tra ket qua
+                if (
+                    typeof answer !== "number" ||
+                    !Number.isFinite(answer)
+                ) {
+                    throw new Error("Kết quả không hợp lệ");
+                }
+
+                // Lam tron sai so thuc
+                const roundedAnswer =
+                    Number(answer.toPrecision(12));
+
+                // Hien thi phep tinh va ket qua
+                expressionDisplay.textContent =
+                    expression + " =";
+
+                resultDisplay.textContent =
+                    String(roundedAnswer);
+
+                // Luu ket qua de tinh tiep
+                expression = String(roundedAnswer);
+                justCalculated = true;
+
+            } catch (error) {
+                resultDisplay.textContent = "Lỗi";
+                justCalculated = false;
+            }
+        }
+
+        keys.addEventListener("click", function (event) {
+            const button =
+                event.target.closest("button");
+
+            if (!button) {
+                return;
+            }
+
+            const action = button.dataset.action;
+            const value = button.dataset.value;
+
+            if (action === "clear") {
+                clearCalculator();
+
+            } else if (action === "equals") {
+                calculate();
+
+            } else if (action === "parentheses") {
+                appendParenthesis();
+
+            } else if (value !== undefined) {
+                appendValue(value);
+            }
+        });
+
+        // Ho tro nhap bang ban phim may tinh
+        document.addEventListener("keydown", function (event) {
+            const key = event.key;
+
+            if (/^[0-9.]$/.test(key)) {
+                appendValue(key);
+
+            } else if (key === "+") {
+                appendValue("+");
+
+            } else if (key === "-") {
+                appendValue("−");
+
+            } else if (key === "*") {
+                appendValue("×");
+
+            } else if (key === "/") {
+                event.preventDefault();
+                appendValue("÷");
+
+            } else if (key === "%") {
+                appendValue("%");
+
+            } else if (key === "Enter" || key === "=") {
+                calculate();
+
+            } else if (
+                key === "Escape" ||
+                key === "Delete"
+            ) {
+                clearCalculator();
+
+            } else if (key === "(" || key === ")") {
+                if (justCalculated) {
+                    expression = "";
+                    justCalculated = false;
+                }
+
+                expression += key;
+                updateExpression();
+
+            } else if (key === "Backspace") {
+                expression = expression.slice(0, -1);
+                updateExpression();
+            }
+        });
+    </script>
+</body>
+</html>
