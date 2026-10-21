@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 17 - Form Đăng ký</title>
+
+    <style>
+    *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+    }
+
+    body {
+    background:#f7f7f7;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:20px;
+    }
+
+    .container {
+    width:650px;
+    background:#ffffff;
+    border:1px solid #fed7aa;
+    border-radius:12px;
+    padding:30px;
+    }
+
+    h1 {
+    color:#c2410c;
+    margin-bottom:10px;
+    }
+
+    .desc {
+    color:#6b7280;
+    margin-bottom:25px;
+    }
+
+    .form-group {
+    margin-bottom:20px;
+    }
+
+    label {
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+    color:#374151;
+    }
+
+    input {
+    width:100%;
+    padding:14px;
+    border:2px solid #d1d5db;
+    border-radius:10px;
+    outline:none;
+    font-size:16px;
+    }
+
+    .error-border {
+    border-color:#dc2626;
+    }
+
+    .success-border {
+    border-color:#16a34a;
+    }
+
+    .error {
+    color:#dc2626;
+    font-size:15px;
+    margin-top:6px;
+    }
+
+    .success {
+    color:#16a34a;
+    font-size:15px;
+    margin-top:6px;
+    }
+
+    button {
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#c2410c;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    }
+
+    button:hover {
+    background:#9a3412;
+    }
+
+    @media(max-width:768px) {
+    .container {
+        width:100%;
+        }
+    }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Đăng ký tài khoản</h1>
+    <p class="desc">Dữ liệu được kiểm tra bằng JavaScript trước khi gửi.</p>
+
+    <form id="registerForm">
+
+        <div class="form-group">
+            <label>Họ và tên</label>
+            <input type="text" id="fullname">
+            <div id="nameMessage"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" id="email">
+            <div id="emailMessage"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Mật khẩu</label>
+            <input type="password" id="password">
+            <div id="passwordMessage"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Xác nhận mật khẩu</label>
+            <input type="password" id="confirmPassword">
+            <div id="confirmMessage"></div>
+        </div>
+
+        <button type="submit">Đăng ký</button>
+
+    </form>
+
+</div>
+
+<script>
+
+const form = document.getElementById("registerForm");
+
+const fullname = document.getElementById("fullname");
+const email = document.getElementById("email");
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirmPassword");
+
+function showError(input, messageId, message){
+    const msg = document.getElementById(messageId);
+
+    input.classList.remove("success-border");
+    input.classList.add("error-border");
+
+    msg.className = "error";
+    msg.innerHTML = "✗ " + message;
+}
+
+function showSuccess(input, messageId){
+    const msg = document.getElementById(messageId);
+
+    input.classList.remove("error-border");
+    input.classList.add("success-border");
+
+    msg.className = "success";
+    msg.innerHTML = "✓ Hợp lệ";
+}
+
+form.addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+    let isValid = true;
+
+    if(fullname.value.trim() === ""){
+        showError(
+            fullname,
+            "nameMessage",
+            "Họ tên không được để trống"
+        );
+        isValid = false;
+    }
+    else {
+        showSuccess(fullname, "nameMessage");
+    }
+
+    const emailRegex =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(!emailRegex.test(email.value.trim())) {
+        showError(
+            email,
+            "emailMessage",
+            "Email không đúng định dạng"
+        );
+        isValid = false;
+    }
+    else {
+        showSuccess(email, "emailMessage");
+    }
+
+    if(password.value.length < 6){
+        showError(
+            password,
+            "passwordMessage",
+            "Mật khẩu phải có ít nhất 6 ký tự"
+        );
+        isValid = false;
+    }
+    else{
+        showSuccess(password, "passwordMessage");
+    }
+
+    if(confirmPassword.value !== password.value ||
+       confirmPassword.value === ""){
+        showError(
+            confirmPassword,
+            "confirmMessage",
+            "Mật khẩu xác nhận không khớp"
+        );
+        isValid = false;
+    }
+    else{
+        showSuccess(confirmPassword, "confirmMessage");
+    }
+
+    if(isValid) {
+        alert("Đăng ký thành công!");
+        form.reset();
+
+        document
+        .querySelectorAll("input")
+        .forEach(input=>{
+            input.classList.remove(
+                "success-border",
+                "error-border"
+            );
+        });
+
+        document
+        .querySelectorAll(".error,.success")
+        .forEach(msg=>{
+            msg.innerHTML="";
+        });
+    }
+
+});
+</script>
+</body>
+</html>
