@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Các món ngon Hà Nội</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #FFF8E7;
+            font-family: "Times New Roman", serif;
+            color: #000000;
+        }
+
+        .container {
+            width: 94%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #E65100;
+            font-size: 36px;
+            font-weight: bold;
+            margin: 0 0 30px 0;
+        }
+
+        .noi-dung {
+            display: flex;
+            align-items: flex-start;
+            gap: 35px;
+        }
+
+        .cot-anh {
+            width: 28%;
+            text-align: center;
+        }
+
+        .cot-anh img {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .cot-bang {
+            width: 72%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 20px;
+            background-color: #FFFFFF;
+        }
+
+        thead th {
+            background-color: #E65100;
+            color: #FFFFFF;
+            font-weight: bold;
+            padding: 12px 15px;
+            border-bottom: 2px solid #E0D6C2;
+        }
+
+        th,
+        td {
+            padding: 11px 15px;
+            border-bottom: 2px solid #E0D6C2;
+        }
+
+        th:first-child,
+        td:first-child {
+            width: 15%;
+            text-align: center;
+        }
+
+        th:last-child,
+        td:last-child {
+            width: 85%;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #FFFFFF;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #FDF8EF;
+        }
+
+        @media (max-width: 700px) {
+
+            .noi-dung {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cot-anh,
+            .cot-bang {
+                width: 100%;
+            }
+
+            .cot-anh img {
+                max-width: 280px;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+
+            table {
+                font-size: 17px;
+            }
+
+            th,
+            td {
+                padding: 9px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Các món ngon Hà Nội</h1>
+
+        <div class="noi-dung">
+
+            <div class="cot-anh">
+                <img src="Bai06/Bat.gif"
+                     alt="Hình minh họa món ăn Hà Nội">
+            </div>
+
+            <div class="cot-bang">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên món ăn</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Bánh cuốn Thanh Trì</td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <td>Xôi Hà Nội</td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td>Chả cá Lã Vọng</td>
+                        </tr>
+
+                        <tr>
+                            <td>4</td>
+                            <td>Cháo Cóc</td>
+                        </tr>
+
+                        <tr>
+                            <td>5</td>
+                            <td>Bánh Gai Ninh Giang</td>
+                        </tr>
+
+                        <tr>
+                            <td>6</td>
+                            <td>Bún Thang Hà Nội</td>
+                        </tr>
+
+                        <tr>
+                            <td>7</td>
+                            <td>Canh Lằng</td>
+                        </tr>
+
+                        <tr>
+                            <td>8</td>
+                            <td>Vịt quay Lạng Sơn</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
