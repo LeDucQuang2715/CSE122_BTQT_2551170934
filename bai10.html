@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 10 - Form liên hệ</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 12px;
+            font-family: Arial, sans-serif;
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        main {
+            max-width: 675px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px #0002;
+        }
+
+        header {
+            background: #0f766e;
+            color: white;
+            padding: 20px 26px;
+        }
+
+        header h2 {
+            margin: 0 0 5px;
+            font-size: 23px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        form {
+            padding: 24px 26px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font: inherit;
+            color: #222;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: 2px solid #99f6e4;
+            border-color: #0f766e;
+        }
+
+        .content, .options, .buttons {
+            margin-top: 18px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 88px;
+        }
+
+        .options {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .options input {
+            width: auto;
+            accent-color: #0f766e;
+        }
+
+        .options label {
+            font-weight: normal;
+            max-width: 150px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+            border-radius: 6px;
+            padding: 12px 22px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .submit {
+            background: #0f766e;
+            color: white;
+        }
+
+        .reset {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        #message {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #0f766e;
+        }
+
+        @media (max-width: 500px) {
+            header, form {
+                padding: 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .options {
+                justify-content: flex-start;
+            }
+
+            button {
+                padding: 11px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h2>Liên hệ với chúng tôi</h2>
+            <p>Vui lòng điền thông tin bên dưới, chúng tôi sẽ phản hồi trong 24 giờ.</p>
+        </header>
+
+        <form id="contactForm">
+            <div class="form-grid">
+                <div class="field">
+                    <label for="name">Họ và tên</label>
+                    <input type="text" id="name" name="name"
+                           value="Nguyễn Văn An" required>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email"
+                           value="an.nv@tlu.edu.vn" required>
+                </div>
+
+                <div class="field">
+                    <label for="phone">Số điện thoại</label>
+                    <input type="tel" id="phone" name="phone"
+                           value="0987 654 321" required>
+                </div>
+
+                <div class="field">
+                    <label for="subject">Chủ đề</label>
+                    <select id="subject" name="subject">
+                        <option>Hỏi về khóa học</option>
+                        <option>Hỗ trợ kỹ thuật</option>
+                        <option>Góp ý</option>
+                        <option>Khác</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field content">
+                <label for="content">Nội dung</label>
+                <textarea id="content" name="content" rows="4"
+                          required>Em muốn hỏi về lịch nộp bài tập môn Lập trình Web ạ.</textarea>
+            </div>
+
+            <div class="options">
+                <input type="checkbox" id="agree" name="agree" checked>
+                <label for="agree">Tôi đồng ý nhận email phản hồi.</label>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="submit">Gửi liên hệ</button>
+                <button type="reset" class="reset">Nhập lại</button>
+            </div>
+
+            <p id="message" role="status"></p>
+        </form>
+    </main>
+
+    <script>
+        const form = document.getElementById("contactForm");
+        const message = document.getElementById("message");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            if (!document.getElementById("agree").checked) {
+                message.textContent = "Vui lòng đồng ý nhận email phản hồi.";
+                return;
+            }
+
+            message.textContent = "Gửi liên hệ thành công!";
+        });
+
+        form.addEventListener("reset", function() {
+            message.textContent = "";
+        });
+    </script>
+</body>
+</html>
