@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 19 - Mũi Né</title>
+
+    <style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    body {
+        font-family: "Times New Roman", serif;
+        padding:15px;
+        background:#ffffff;
+        line-height:1.8;
+    }
+
+    .image {
+        float:left;
+        width:300px;
+        margin-right:20px;
+    }
+
+    .image img {
+        width:100%;
+        border-radius:8px;
+        box-shadow:0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .content{
+        overflow:hidden;
+    }
+
+    h1{
+        color:#C9A227;
+        font-size:48px;
+        margin-bottom:20px;
+
+        text-shadow:
+        2px 2px 4px rgba(0,0,0,0.35);
+    }
+
+    .text-box{
+        border:2px dashed #E07B00;
+        border-radius:10px;
+        padding:18px;
+        font-size:20px;
+    }
+
+    .highlight{
+        color:#C62828;
+        font-weight:bold;
+    }
+
+    p{
+        margin-bottom:15px;
+    }
+
+    @media(max-width:768px){
+        .image{
+            float:none;
+            width:100%;
+            margin-right:0;
+            margin-bottom:20px;
+        }
+
+        h1{
+            font-size:36px;
+        }
+
+        .text-box{
+            font-size:18px;
+        }
+    }
+    </style>
+</head>
+<body>
+
+<div class="image">
+    <img src="Bai19/muine.jpg" alt="Đồi cát Mũi Né">
+</div>
+
+<div class="content">
+    <h1>Mũi Né – Huyền bí và quyến rũ</h1>
+    <div class="text-box">
+
+        <p>
+            Biển và cát là những gì mà
+            <span class="highlight">Phan Thiết</span>
+            hào hiệp ban tặng cho du khách.
+            Phan Thiết nằm trong vùng nhiệt đới,
+            ít chịu ảnh hưởng gió mùa đông bắc,
+            khí hậu nóng và khô, lượng mưa trung bình
+            chỉ 800 – 1.150 mm mỗi năm - 
+            ít nhất khu vực Nam Bộ.
+        </p>
+
+        <p>
+            Từ nhiều năm qua, đồi cát Mũi Né là
+            đề tài quen thuộc của các cuộc thi ảnh nghệ thuật,
+            là biểu tượng nổi tiếng của vùng đất Bình Thuận.
+            Bờ biển
+            <span class="highlight">Hòn Rơm</span>
+            sạch và đẹp, nước trong xanh,
+            sóng chạy dưới chân những hàng dừa mát rượi.
+        </p>
+
+    </div>
+
+</div>
+</body>
+</html>
